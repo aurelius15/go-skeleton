@@ -22,7 +22,8 @@ func (c *ServerCmd) BindConfig(i interface{}) {
 }
 
 func (c *ServerCmd) Execute() {
-	server.Up(c.config.Port)
+	s := server.CreateServer(c.config.Port)
+	s.Up()
 }
 
 func init() {

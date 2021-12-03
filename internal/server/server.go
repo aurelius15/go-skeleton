@@ -11,7 +11,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func Up(port string) {
+type Server struct {
+	port   string
+	Router *gin.Engine
+}
+
+func CreateServer(port string) *Server {
 	router := gin.New()
 
 	router.Use(middleware.AccessLogging)
@@ -20,8 +25,15 @@ func Up(port string) {
 		router.Handle(r.Method, r.Path, r.Handle)
 	}
 
+	return &Server{
+		port:   getAddr(port),
+		Router: router,
+	}
+}
+
+func (s *Server) Up() {
 	log.Default().Fatal("Error during running server", zap.Error(
-		router.Run(getAddr(port)),
+		s.Router.Run(s.port),
 	))
 }
 

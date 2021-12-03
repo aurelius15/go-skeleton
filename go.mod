@@ -5,11 +5,13 @@ go 1.17
 require (
 	github.com/alexflint/go-arg v1.4.2
 	github.com/gin-gonic/gin v1.7.7
+	github.com/steinfletcher/apitest v1.5.11
 	go.uber.org/zap v1.19.1
 )
 
 require (
 	github.com/alexflint/go-scalar v1.0.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect

@@ -27,13 +27,13 @@ func init() {
 }
 
 func getUsers(c *gin.Context) {
-	fmt.Fprint(c.Writer, "Welcome!\n")
+	c.String(http.StatusOK, "Welcome!\n")
 }
 
 func getUser(c *gin.Context) {
-	fmt.Fprint(c.Writer, "Welcome!\n")
+	c.String(http.StatusOK, "Welcome!\n")
 }
 
 func addUser(c *gin.Context) {
-	fmt.Fprint(c.Writer, "Welcome!\n")
+	c.String(http.StatusOK, "Welcome!\n")
 }
