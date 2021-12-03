@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -15,6 +16,7 @@ import (
 func main() {
 	configs := config.ParseConfig()
 	cmdName, subConfig := getSubCommand(configs)
+
 	var l *zap.Logger
 
 	switch configs.AppMode {
@@ -22,11 +24,17 @@ func main() {
 		l, _ = zap.NewDevelopment()
 	default:
 		l, _ = zap.NewProduction()
+
 		gin.SetMode(gin.ReleaseMode)
 	}
 
 	log.SetDefault(l)
-	defer l.Sync()
+	defer func(l *zap.Logger) {
+		err := l.Sync()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(l)
 
 	if command, ok := cmd.CommandCollection[cmdName]; ok {
 		command.BindConfig(subConfig)
@@ -46,6 +54,7 @@ func getSubCommand(c *config.Config) (name string, inter interface{}) {
 
 		inter = subCmd.Interface()
 		name = strings.Split(strings.SplitN(v.Type().Field(i).Tag.Get("arg"), ",", 1)[0], ":")[1]
+
 		break
 	}
 

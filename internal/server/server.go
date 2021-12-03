@@ -2,11 +2,12 @@ package server
 
 import (
 	"fmt"
+
 	"github.com/aurelius15/go-skeleton/internal/log"
 	"github.com/aurelius15/go-skeleton/internal/server/middleware"
 	"github.com/aurelius15/go-skeleton/internal/server/route"
-	"github.com/gin-gonic/gin"
 
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 

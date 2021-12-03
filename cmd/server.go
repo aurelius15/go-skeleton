@@ -13,11 +13,15 @@ type ServerCmd struct {
 }
 
 func (c *ServerCmd) BindConfig(i interface{}) {
-	c.config = i.(*config.ServerConfig)
+	switch v := i.(type) {
+	case *config.ServerConfig:
+		c.config = v
+	default:
+		log.Default().Panic("can not convert interface to struct")
+	}
 }
 
 func (c *ServerCmd) Execute() {
-	log.Default().Info("Server up")
 	server.Up(c.config.Port)
 }
 
