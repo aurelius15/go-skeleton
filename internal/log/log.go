@@ -2,7 +2,7 @@ package log
 
 import "go.uber.org/zap"
 
-var log, _ = zap.NewProduction()
+var log = zap.L()
 
 func Default() *zap.Logger {
 	return log

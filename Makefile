@@ -1,38 +1,42 @@
-SHELL := /bin/bash
+GOCMD=go
+GOTEST=$(GOCMD) test
+BINARY_NAME=example
 
-# Gather Host Information
-# {
-UNAME := $(shell uname -s)
-OS    := UNKNOWN
+GREEN  := $(shell tput -Txterm setaf 2)
+YELLOW := $(shell tput -Txterm setaf 3)
+WHITE  := $(shell tput -Txterm setaf 7)
+CYAN   := $(shell tput -Txterm setaf 6)
+RESET  := $(shell tput -Txterm sgr0)
 
-ifeq ($(UNAME),Linux)
-    OS := linux
-endif
+.PHONY: all test lint
 
-ifeq ($(UNAME),Darwin)
-    OS := macos
-endif
-# }
+all: help
 
-# Some useful variables...
+## Test:
+test: unit-test integration-test ## Run all tests
 
-ERROR   := "   \033[41;1m error \033[0m "
-INFO    := "    \033[34;1m info \033[0m "
-OK      := "      \033[32;1m ok \033[0m "
-WARNING := " \033[33;1m warning \033[0m "
+unit-test: ## Run unit tests of the project
+	$(GOTEST) -v -race ./... $(OUTPUT_OPTIONS)
 
-CWD    := $(shell pwd)
+integration-test: ## Run integration tests of the project
+	$(GOTEST) --tags=integration -v -race ./... $(OUTPUT_OPTIONS)
 
-# Task: ling | Run linter
-# {
-.PHONY: lint
-lint:
-	docker run --rm -v $(CWD):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v
-# }
+coverage: ## Run the tests of the project and export the coverage
+	$(GOTEST) -cover -covermode=count -coverprofile=profile.cov ./...
+	$(GOCMD) tool cover -func profile.cov
 
-# Task: test | Run all go tests with race condition.
-# {
-.PHONY: test
-unit-test:
-	go test -v -race -timeout 30s ./...
-# }
+## Lint:
+lint: ## Use golintci-lint on your project
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v $(OUTPUT_OPTIONS)
+
+## Help:
+help: ## Show this help.
+	@echo ''
+	@echo 'Usage:'
+	@echo '  ${YELLOW}make${RESET} ${GREEN}<target>${RESET}'
+	@echo ''
+	@echo 'Targets:'
+	@awk 'BEGIN {FS = ":.*?## "} { \
+		if (/^[a-zA-Z_-]+:.*?##.*$$/) {printf "    ${YELLOW}%-20s${GREEN}%s${RESET}\n", $$1, $$2} \
+		else if (/^## .*$$/) {printf "  ${CYAN}%s${RESET}\n", substr($$1,4)} \
+		}' $(MAKEFILE_LIST)
