@@ -13,7 +13,7 @@ RESET  := $(shell tput -Txterm sgr0)
 all: help
 
 ## Test:
-test: unit-test integration-test ## Run all tests
+test: unit-test integration-test coverage ## Run all tests with coverage
 
 unit-test: ## Run unit tests of the project
 	$(GOTEST) -v -race ./... $(OUTPUT_OPTIONS)
@@ -25,7 +25,7 @@ coverage: ## Run the tests of the project and export the coverage
 	$(GOTEST) -cover -covermode=count -coverprofile=profile.cov ./...
 	$(GOCMD) tool cover -func profile.cov
 
-## Lint:
+## Check code:
 lint: ## Use golintci-lint on your project
 	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v $(OUTPUT_OPTIONS)
 

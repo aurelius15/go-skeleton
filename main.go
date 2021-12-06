@@ -32,7 +32,7 @@ func main() {
 	defer func(l *zap.Logger) {
 		err := l.Sync()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("zap-logging: " + err.Error())
 		}
 	}(l)
 
@@ -48,7 +48,7 @@ func getSubCommand(c *config.Config) (name string, inter interface{}) {
 	for i := 0; i < v.NumField(); i++ {
 		subCmd := v.Field(i)
 
-		if subCmd.Interface() != nil && subCmd.IsNil() {
+		if subCmd.Interface() != nil || subCmd.IsNil() {
 			continue
 		}
 
