@@ -20,7 +20,11 @@ type Config struct {
 
 func ParseConfig() *Config {
 	c := Config{}
-	arg.MustParse(&c)
+	p := arg.MustParse(&c)
+
+	if p.Subcommand() == nil {
+		p.Fail("missing subcommand")
+	}
 
 	return &c
 }

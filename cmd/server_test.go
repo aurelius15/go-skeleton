@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/aurelius15/go-skeleton/internal/config"
 	"testing"
 
+	"github.com/aurelius15/go-skeleton/internal/config"
 	"github.com/stretchr/testify/assert"
 )
 
