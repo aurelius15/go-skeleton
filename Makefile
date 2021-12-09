@@ -16,10 +16,10 @@ all: help
 test: unit-test integration-test coverage ## Run all tests with coverage
 
 unit-test: ## Run unit tests of the project
-	$(GOTEST) -v -race ./... $(OUTPUT_OPTIONS)
+	$(GOTEST) -race ./... $(OUTPUT_OPTIONS)
 
 integration-test: ## Run integration tests of the project
-	$(GOTEST) --tags=integration -v -race ./... $(OUTPUT_OPTIONS)
+	$(GOTEST) --tags=integration -race ./... $(OUTPUT_OPTIONS)
 
 coverage: ## Run the tests of the project and export the coverage
 	$(GOTEST) -cover -covermode=count -coverprofile=profile.cov ./...

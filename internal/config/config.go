@@ -9,8 +9,9 @@ const (
 	ProdMode  = "prod"
 )
 
-type ServerConfig struct {
-	Port string `arg:"-p,--port,required"`
+type Configure interface {
+	Config(fieldName string) (string, error)
+	Command() string
 }
 
 type Config struct {
