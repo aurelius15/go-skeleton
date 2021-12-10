@@ -14,6 +14,7 @@ type WebEngine interface {
 }
 
 func NewServer() WebEngine {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 
 	router.Use(middleware.AccessLogging)

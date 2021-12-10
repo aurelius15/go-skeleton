@@ -13,12 +13,12 @@ RESET  := $(shell tput -Txterm sgr0)
 all: help
 
 ## Test:
-test: unit-test integration-test coverage ## Run all tests with coverage
+test: all-tests coverage ## Run all tests with coverage
 
-unit-test: ## Run unit tests of the project
+unit-tests: ## Run unit tests of the project
 	$(GOTEST) -race ./... $(OUTPUT_OPTIONS)
 
-integration-test: ## Run integration tests of the project
+all-tests: ## Run all tests of the project
 	$(GOTEST) --tags=integration -race ./... $(OUTPUT_OPTIONS)
 
 coverage: ## Run the tests of the project and export the coverage
