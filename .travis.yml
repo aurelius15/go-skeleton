@@ -9,7 +9,7 @@ before_install:
 
 script:
   - make all-tests lint
-  - golangci-lint
+  - golangci-lint run
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
