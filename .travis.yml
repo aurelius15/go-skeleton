@@ -1,0 +1,13 @@
+language: go
+
+go:
+  - 1.17.x
+
+service:
+  - docker
+
+before_install:
+  - go mod download
+
+script:
+  - make all-tests lint
