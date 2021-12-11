@@ -22,8 +22,8 @@ all-tests: ## Run all tests of the project
 	$(GOTEST) --tags=integration -race ./... $(OUTPUT_OPTIONS)
 
 coverage: ## Run the tests of the project and export the coverage
-	$(GOTEST) -cover -covermode=count -coverprofile=profile.cov ./...
-	$(GOCMD) tool cover -func profile.cov
+	$(GOTEST) -cover -coverprofile=coverage.txt -covermode=atomic ./...
+	$(GOCMD) tool cover -func coverage.txt
 
 ## Check code:
 lint: ## Use golintci-lint on your project

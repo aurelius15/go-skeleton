@@ -12,4 +12,6 @@ before_install:
 script:
   - make all-tests lint
   - make coverage
-  - codecov -f profile.cov
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
