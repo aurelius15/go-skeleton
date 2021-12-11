@@ -11,3 +11,5 @@ before_install:
 
 script:
   - make all-tests lint
+  - make coverage
+  - codecov -f profile.cov
