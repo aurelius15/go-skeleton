@@ -8,10 +8,11 @@ service:
 
 before_install:
   - go mod download
+  - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.43.0
 
 script:
   - make all-tests lint
-  - make coverage
+  - golangci-lint
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
