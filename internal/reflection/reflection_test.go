@@ -85,6 +85,68 @@ func TestStringFieldByName(t *testing.T) {
 	}
 }
 
+func TestFirstNotNilInterface(t *testing.T) {
+	type input struct {
+		obj interface{}
+	}
+
+	type output struct {
+		field interface{}
+		err   error
+	}
+
+	type test struct {
+		input    input
+		expected output
+		msg      string
+	}
+
+	type subStruct struct {
+		UserName string
+	}
+
+	subObjTestCase2 := &subStruct{UserName: "test"}
+	objTestCase2 := struct {
+		User1 *subStruct
+		User  *subStruct
+	}{User: subObjTestCase2}
+
+	objTestCase3 := struct {
+		User *subStruct
+	}{User: nil}
+
+	tests := []test{
+		{
+			input: input{obj: nil},
+			expected: output{
+				field: empty,
+				err:   ErrTypeNotStructure,
+			},
+		},
+		{
+			input: input{obj: objTestCase2},
+			expected: output{
+				field: subObjTestCase2,
+				err:   nil,
+			},
+		},
+		{
+			input: input{obj: objTestCase3},
+			expected: output{
+				field: nil,
+				err:   ErrInterfaceNotFound,
+			},
+		},
+	}
+
+	for _, testCase := range tests {
+		value, err := FirstNotNilInterface(testCase.input.obj)
+
+		assert.Equal(t, err, testCase.expected.err, testCase.msg)
+		assert.Equal(t, value, testCase.expected.field)
+	}
+}
+
 func TestFieldByTag(t *testing.T) {
 	type input struct {
 		obj      interface{}
