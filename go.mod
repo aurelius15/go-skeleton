@@ -5,6 +5,9 @@ go 1.17
 require (
 	github.com/alexflint/go-arg v1.4.2
 	github.com/gin-gonic/gin v1.7.7
+	github.com/go-redis/redis/v8 v8.11.4
+	github.com/go-redis/redismock/v8 v8.0.6
+	github.com/google/uuid v1.3.0
 	github.com/steinfletcher/apitest v1.5.11
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.19.1
@@ -12,7 +15,9 @@ require (
 
 require (
 	github.com/alexflint/go-scalar v1.0.0 // indirect
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect

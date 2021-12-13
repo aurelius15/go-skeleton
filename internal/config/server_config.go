@@ -10,8 +10,9 @@ type ServerConfig struct {
 	Port string `arg:"-p,--port,required" placeholder:":8080"`
 }
 
-func (c *ServerConfig) Config(fieldName string) (string, error) {
-	return reflection.StringFieldByName(c, fieldName)
+func (c *ServerConfig) Config(fieldName string) (s string) {
+	s, _ = reflection.StringFieldByName(c, fieldName)
+	return
 }
 
 func (c *ServerConfig) Command() string {

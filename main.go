@@ -5,6 +5,8 @@ import (
 	"github.com/aurelius15/go-skeleton/internal/config"
 	"github.com/aurelius15/go-skeleton/internal/log"
 	"github.com/aurelius15/go-skeleton/internal/reflection"
+	"github.com/aurelius15/go-skeleton/internal/storage"
+	"github.com/go-redis/redis/v8"
 )
 
 func main() {
@@ -14,6 +16,10 @@ func main() {
 	log.SetDefault(logger)
 
 	defer log.GracefulSync(logger)
+
+	storage.SetInstance(redis.NewClient(&redis.Options{
+		Addr: configs.RedisPort,
+	}))
 
 	inter, err := reflection.FirstNotNilInterface(*configs)
 	if err != nil {

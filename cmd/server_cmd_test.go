@@ -5,17 +5,12 @@ import (
 
 	"github.com/aurelius15/go-skeleton/internal/config"
 	"github.com/aurelius15/go-skeleton/test/mock"
-	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
 type TestSuite struct {
 	suite.Suite
-}
-
-func (s *TestSuite) SetupTest() {
-	gin.SetMode(gin.ReleaseMode)
 }
 
 func (s *TestSuite) TestServerCmd_Init() {

@@ -10,9 +10,9 @@ type MockedConfig struct {
 	mock.Mock
 }
 
-func (m *MockedConfig) Config(fieldName string) (string, error) {
+func (m *MockedConfig) Config(fieldName string) string {
 	args := m.Called(fieldName)
-	return args.String(0), args.Error(1)
+	return args.String(0)
 }
 
 func (m *MockedConfig) Command() string {

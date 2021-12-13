@@ -4,6 +4,13 @@
 package api
 
 import (
+	"encoding/json"
+	"fmt"
+	"github.com/aurelius15/go-skeleton/internal/entity"
+	"github.com/aurelius15/go-skeleton/internal/helper"
+	"github.com/aurelius15/go-skeleton/internal/server/route"
+	"github.com/aurelius15/go-skeleton/internal/storage"
+	"github.com/go-redis/redismock/v8"
 	"net/http"
 	"testing"
 
@@ -12,11 +19,26 @@ import (
 )
 
 func TestGetUser_Success(t *testing.T) {
+	userID := helper.UUID()
+	db, mock := redismock.NewClientMock()
+	storage.SetInstance(db)
+
+	testUser := entity.User{
+		ID:        userID,
+		FirstName: "test",
+		LastName:  "test",
+		Address:   nil,
+	}
+
+	expectedResponse, _ := json.Marshal(testUser)
+
+	mock.ExpectGet(userID).SetVal(string(expectedResponse))
+
 	apitest.New().
 		Handler(server.NewServer()).
-		Get("/api/v1/users/1111").
+		Get(fmt.Sprintf("%s/%s", route.APIPrefix, userID)).
 		Expect(t).
-		Body("Welcome!\n").
+		Body(string(expectedResponse)).
 		Status(http.StatusOK).
 		End()
 }

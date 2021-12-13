@@ -22,11 +22,7 @@ func (c *ServerCmd) Execute() {
 		log.Default().Fatal("before Execute trigger BindConfig")
 	}
 
-	port, err := c.config.Config("Port")
-
-	if err != nil {
-		log.Default().Fatal(err.Error())
-	}
+	port := c.config.Config("Port")
 
 	if err := c.webEngine.Run(port); err != nil {
 		log.Default().Fatal("Error during running server", zap.Error(err))
