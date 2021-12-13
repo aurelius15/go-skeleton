@@ -19,7 +19,7 @@ func (c *ServerCmd) BindConfig(i config.Configure) {
 
 func (c *ServerCmd) Execute() {
 	if c.config == nil || c.webEngine == nil {
-		log.Default().Fatal("before Execute trigger BindConfig")
+		log.Default().Panic("before Execute trigger BindConfig")
 	}
 
 	port := c.config.Config("Port")

@@ -44,6 +44,14 @@ func (s *TestSuite) TestServerCmd_Execute() {
 	webEngine.AssertExpectations(s.T())
 }
 
+func (s *TestSuite) TestServerCmd_Execute_Without_Configs() {
+	cmd := ServerCmd{}
+
+	assert.PanicsWithValuef(s.T(), "before Execute trigger BindConfig", func() {
+		cmd.Execute()
+	}, "it should throw panic with message")
+}
+
 func TestServerCmd(t *testing.T) {
 	suite.Run(t, new(TestSuite))
 }
