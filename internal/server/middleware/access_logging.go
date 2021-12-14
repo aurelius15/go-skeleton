@@ -17,6 +17,7 @@ func AccessLogging(c *gin.Context) {
 		zap.String("method", c.Request.Method),
 		zap.String("path", c.Request.URL.Path),
 		zap.Int("status", c.Writer.Status()),
+		zap.String("uuid", c.GetHeader(CorrelationHeader)),
 		zap.Duration("latency", time.Since(start)),
 	)
 }

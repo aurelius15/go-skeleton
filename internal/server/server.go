@@ -17,7 +17,9 @@ func NewServer() WebEngine {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 
-	router.Use(middleware.AccessLogging)
+	for _, m := range middleware.Middlewares {
+		router.Use(m.Handle)
+	}
 
 	for _, r := range route.Routes {
 		router.Handle(r.Method, r.Path, r.Handle)

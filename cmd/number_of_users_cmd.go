@@ -8,15 +8,15 @@ import (
 	"github.com/aurelius15/go-skeleton/internal/repository"
 )
 
-type AmountRecordsCmd struct {
+type NumberOfUsersCmd struct {
 	config config.Configure
 }
 
-func (c *AmountRecordsCmd) BindConfig(i config.Configure) {
+func (c *NumberOfUsersCmd) BindConfig(i config.Configure) {
 	c.config = i
 }
 
-func (c *AmountRecordsCmd) Execute() {
+func (c *NumberOfUsersCmd) Execute() {
 	n, err := repository.UserRepository().NumberOfUsers(context.Background())
 	if err != nil {
 		fmt.Println(err)
@@ -27,5 +27,5 @@ func (c *AmountRecordsCmd) Execute() {
 }
 
 func init() {
-	CommandCollection[config.NumberOfUsersCmd] = &AmountRecordsCmd{}
+	CommandCollection[config.NumberOfUsersCmd] = &NumberOfUsersCmd{}
 }
