@@ -12,6 +12,7 @@
 - testing via [github.com/stretchr/testify](testify) and [apitest](github.com/steinfletcher/apitest) 
 - profiling
 - managing via makefile
+- code styling via [golangci-lint](https://golangci-lint.run/)
 
 ## License
 
