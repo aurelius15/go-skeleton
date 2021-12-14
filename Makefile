@@ -24,7 +24,7 @@ unit-tests: ## Run unit tests of the project
 	$(GOTEST) -race ./... $(RUN_ARGS)
 
 all-tests: ## Run all tests of the project
-	$(GOTEST) --tags=integration -race ./... $(RUN_ARGS)
+	$(GOTEST) --tags=integration -race ./...
 
 coverage: ## Run the tests of the project and export the coverage
 	$(GOTEST) -cover -coverprofile=coverage.txt -covermode=atomic ./...
@@ -32,7 +32,7 @@ coverage: ## Run the tests of the project and export the coverage
 
 ## Check code:
 lint: ## Use golintci-lint on your project
-	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v $(RUN_ARGS)
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v
 
 ## Local environment:
 up: ## Up services
