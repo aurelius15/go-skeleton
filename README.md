@@ -14,6 +14,10 @@
 - managing via makefile
 - code styling via [golangci-lint](https://golangci-lint.run/)
 
+## Project structure
+
+Project structure based on recommendations from [project-layout](https://github.com/golang-standards/project-layout)
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
