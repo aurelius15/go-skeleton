@@ -1,5 +1,5 @@
 # Go walking skeleton
-[![Go Report Card](https://goreportcard.com/badge/github.com/aurelius15/go-skeleton?style=flat-square)](https://goreportcard.com/report/github.com/aurelius15/go-skeleton)
+[![Go Report Card](https://goreportcard.com/badge/github.com/aurelius15/go-skeleton)](https://goreportcard.com/report/github.com/aurelius15/go-skeleton)
 [![Build Status](https://app.travis-ci.com/aurelius15/go-skeleton.svg?token=JGY9GZm9cXWUmfpm1c5C&branch=master)](https://app.travis-ci.com/aurelius15/go-skeleton)
 [![codecov](https://codecov.io/gh/aurelius15/go-skeleton/branch/master/graph/badge.svg?token=M708NM3HOP)](https://codecov.io/gh/aurelius15/go-skeleton)
 
