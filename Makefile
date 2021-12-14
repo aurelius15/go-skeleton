@@ -49,7 +49,7 @@ logs: ## Show logs
 
 ## Profiling:
 pprof: ## Heap
-	curl -sK -v http://localhost:8080/internal/debug/pprof/heap > heap.out
+	curl -sK -v http://localhost:8080/debug/pprof/heap > heap.out
 	go tool pprof -http=:8081 heap.out
 
 ## Help:
