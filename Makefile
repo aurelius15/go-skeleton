@@ -4,6 +4,9 @@ BINARY_NAME=example
 
 DOCKER_COMPOSE_FILE = "deployments/local/docker-compose.yml"
 
+RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+$(eval $(RUN_ARGS):;@:)
+
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
@@ -18,10 +21,10 @@ all: help
 test: all-tests coverage ## Run all tests with coverage
 
 unit-tests: ## Run unit tests of the project
-	$(GOTEST) -race ./... $(OUTPUT_OPTIONS)
+	$(GOTEST) -race ./... $(RUN_ARGS)
 
 all-tests: ## Run all tests of the project
-	$(GOTEST) --tags=integration -race ./... $(OUTPUT_OPTIONS)
+	$(GOTEST) --tags=integration -race ./... $(RUN_ARGS)
 
 coverage: ## Run the tests of the project and export the coverage
 	$(GOTEST) -cover -coverprofile=coverage.txt -covermode=atomic ./...
@@ -29,15 +32,12 @@ coverage: ## Run the tests of the project and export the coverage
 
 ## Check code:
 lint: ## Use golintci-lint on your project
-	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v $(OUTPUT_OPTIONS)
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v $(RUN_ARGS)
 
 ## Local environment:
-up: ## Up all services
-	docker-compose -f ${DOCKER_COMPOSE_FILE} up --build -d
+up: ## Up services
+	docker-compose -f ${DOCKER_COMPOSE_FILE} up --build -d $(RUN_ARGS)
 	docker-compose -f ${DOCKER_COMPOSE_FILE} ps
-
-up-redis: ## Up only redis
-	docker-compose -f ${DOCKER_COMPOSE_FILE} up redis
 
 down: ## Down all services
 	docker-compose -f ${DOCKER_COMPOSE_FILE} down
@@ -45,7 +45,7 @@ down: ## Down all services
 restart: down up ## Restart all services
 
 logs: ## Show logs
-	docker-compose -f ${DOCKER_COMPOSE_FILE} logs
+	docker-compose -f ${DOCKER_COMPOSE_FILE} logs $(RUN_ARGS)
 
 ## Profiling:
 pprof: ## Heap
