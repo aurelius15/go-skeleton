@@ -6,15 +6,15 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/aurelius15/go-skeleton/internal/entity"
-	"github.com/aurelius15/go-skeleton/internal/helper"
-	"github.com/aurelius15/go-skeleton/internal/server/route"
-	"github.com/aurelius15/go-skeleton/internal/storage"
-	"github.com/go-redis/redismock/v8"
 	"net/http"
 	"testing"
 
+	"github.com/aurelius15/go-skeleton/internal/entity"
+	"github.com/aurelius15/go-skeleton/internal/helper"
 	"github.com/aurelius15/go-skeleton/internal/server"
+	"github.com/aurelius15/go-skeleton/internal/server/route"
+	"github.com/aurelius15/go-skeleton/internal/storage"
+	"github.com/go-redis/redismock/v8"
 	"github.com/steinfletcher/apitest"
 )
 

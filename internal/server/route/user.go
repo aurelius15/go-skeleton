@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/aurelius15/go-skeleton/internal/entity"
 	"github.com/aurelius15/go-skeleton/internal/repository"
 	"github.com/gin-gonic/gin"
 )
@@ -26,6 +27,7 @@ func init() {
 func getUser(c *gin.Context) {
 	u, err := repository.UserRepository().GetUserByID(c, c.Param("userId"))
 	if err != nil {
+		c.JSON(http.StatusBadRequest, err)
 		return
 	}
 
@@ -33,5 +35,16 @@ func getUser(c *gin.Context) {
 }
 
 func addUser(c *gin.Context) {
-	c.String(http.StatusOK, "Welcome!\n")
+	u, err := repository.UserRepository().SaveUser(c, &entity.User{
+		FirstName: "Test",
+		LastName:  "Test LastName",
+		Address:   nil,
+	})
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, u)
 }

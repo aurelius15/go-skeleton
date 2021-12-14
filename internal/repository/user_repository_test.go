@@ -73,7 +73,7 @@ func (s *TestSuite) TestUserRepo_UpdateUser_Success() {
 
 	jsonTestUser, _ := json.Marshal(testUser)
 
-	mock.ExpectSet(testUser.ID, testUser, redis.KeepTTL).SetVal(string(jsonTestUser))
+	mock.ExpectSet(testUser.ID, string(jsonTestUser), redis.KeepTTL).SetVal(string(jsonTestUser))
 
 	_, err := UserRepository().SaveUser(context.TODO(), testUser)
 

@@ -7,7 +7,7 @@ import (
 const ServerCmd = "server"
 
 type ServerConfig struct {
-	Port string `arg:"-p,--port,required" placeholder:":8080"`
+	Port string `arg:"-p,--port,required,env:APP_PORT" placeholder:":8080"`
 }
 
 func (c *ServerConfig) Config(fieldName string) (s string) {

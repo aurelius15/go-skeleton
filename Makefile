@@ -2,6 +2,8 @@ GOCMD=go
 GOTEST=$(GOCMD) test
 BINARY_NAME=example
 
+DOCKER_COMPOSE_FILE = "deployments/local/docker-compose.yml"
+
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
@@ -28,6 +30,27 @@ coverage: ## Run the tests of the project and export the coverage
 ## Check code:
 lint: ## Use golintci-lint on your project
 	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.43.0 golangci-lint run -v $(OUTPUT_OPTIONS)
+
+## Local environment:
+up: ## Up all services
+	docker-compose -f ${DOCKER_COMPOSE_FILE} up --build -d
+	docker-compose -f ${DOCKER_COMPOSE_FILE} ps
+
+up-redis: ## Up only redis
+	docker-compose -f ${DOCKER_COMPOSE_FILE} up redis
+
+down: ## Down all services
+	docker-compose -f ${DOCKER_COMPOSE_FILE} down
+
+restart: down up ## Restart all services
+
+logs: ## Show logs
+	docker-compose -f ${DOCKER_COMPOSE_FILE} logs
+
+## Profiling:
+pprof: ## Heap
+	curl -sK -v http://localhost:8080/internal/debug/pprof/heap > heap.out
+	go tool pprof -http=:8081 heap.out
 
 ## Help:
 help: ## Show this help.

@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: ./deployments/local/Dockerfile
+    command: "server"
+    links:
+      - redis
+    environment:
+      APP_PORT: ":8080"
+      APP_MODE: "local"
+      REDIS_PORT: redis:6379
+    ports:
+      - "8080:8080"
+  redis:
+    image: redis:alpine
+    volumes:
+      - ./data:/data
+    ports:
+      - "6379:6379"

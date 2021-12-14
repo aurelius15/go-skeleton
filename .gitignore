@@ -1,2 +1,4 @@
 .idea
 coverage.txt
+heap.out
+deployments/local/data

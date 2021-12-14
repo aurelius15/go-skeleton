@@ -40,7 +40,13 @@ func (r *UserRepo) SaveUser(ctx context.Context, user *entity.User) (*entity.Use
 		user.ID = helper.UUID()
 	}
 
-	_, err := r.client.Set(ctx, user.ID, user, redis.KeepTTL).Result()
+	jsonUser, err := json.Marshal(user)
+	if err != nil {
+		return user, err
+	}
+
+	_, err = r.client.Set(ctx, user.ID, string(jsonUser), redis.KeepTTL).Result()
+
 	if err != nil {
 		return user, err
 	}

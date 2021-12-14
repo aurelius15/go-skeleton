@@ -3,7 +3,11 @@ language: go
 go:
   - 1.17.x
 
-service:
+os: linux
+
+dist: xenial
+
+services:
   - docker
 
 before_install:
