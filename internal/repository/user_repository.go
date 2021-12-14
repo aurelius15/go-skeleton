@@ -24,6 +24,11 @@ func UserRepository() *UserRepo {
 	return userRepositoryInstance
 }
 
+func (r *UserRepo) NumberOfUsers(ctx context.Context) (n int64, err error) {
+	n, err = r.client.DBSize(ctx).Result()
+	return
+}
+
 func (r *UserRepo) GetUserByID(ctx context.Context, userID string) (u *entity.User, err error) {
 	user, err := r.client.Get(ctx, userID).Result()
 	if err != nil {
